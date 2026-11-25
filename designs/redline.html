@@ -1,0 +1,242 @@
+<title>Soniaa Redline</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the page is a draft on a CMO's desk. Jargon in black type, her edits in red pen in the margin. Single committed paper look. */
+:root{
+  --paper:#ffffff; --desk:#e9ebee; --ink:#121418; --body:#3c4048; --mute:#8a8f99; --rule:#dfe2e7;
+  --pen:#e0262d; --hi:#fff15a; --blue:#1f4fd6;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --hand:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--desk);color:var(--body);font:17px/1.65 var(--display)}
+.sheet{max-width:1060px;margin:28px auto 80px;background:var(--paper);box-shadow:0 1px 0 var(--rule),0 30px 60px -30px rgba(18,20,24,.25);position:relative;
+  padding-block:clamp(28px,5vw,64px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.sheet{padding-left:clamp(28px,6vw,80px);padding-right:clamp(28px,6vw,80px)}}
+.meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font:500 11px/1.4 var(--mono);color:var(--mute);letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--rule);padding-bottom:14px}
+.meta b{color:var(--ink);font-weight:500}
+.stamp{color:var(--pen);border:2px solid var(--pen);padding:3px 8px;transform:rotate(-3deg);font-weight:500}
+.mark{font-family:var(--hand);color:var(--pen);font-weight:700;line-height:1}
+.hl{background:linear-gradient(transparent 55%,var(--hi) 55%,var(--hi) 92%,transparent 92%)}
+/* HERO draft */
+.draft{position:relative;margin:56px 0 24px}
+.draft h1{font:800 clamp(34px,6.4vw,76px)/1.04 var(--display);color:var(--ink);letter-spacing:-.03em;margin:0;max-width:16ch}
+.j{position:relative;display:inline;transition:color .4s}
+.j::after{content:"";position:absolute;left:-2%;right:-2%;top:52%;height:.09em;background:var(--pen);transform:scaleX(0) rotate(-1.5deg);transform-origin:left;transition:transform .35s cubic-bezier(.6,0,.3,1)}
+.j.x{color:#b9bcc3}.j.x::after{transform:scaleX(1) rotate(-1.5deg)}
+.fix{display:block;font:700 clamp(40px,7vw,86px)/.95 var(--hand);color:var(--pen);margin-top:14px;min-height:1em;transform:rotate(-1.5deg)}
+.fix span{opacity:0;transition:opacity .25s}.fix span.on{opacity:1}
+.margin-note{position:absolute;right:0;top:-18px;font:700 26px/1 var(--hand);color:var(--pen);transform:rotate(4deg);opacity:0;transition:opacity .5s}
+.margin-note.on{opacity:1}
+@media (max-width:700px){.margin-note{position:static;display:block;margin-bottom:8px;transform:none}}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:22px}
+.btn{background:var(--ink);color:#fff;border:0;font:500 13px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:13px 16px;cursor:pointer}
+.btn.pen{background:var(--pen)}
+.who{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;margin-top:48px;padding-top:28px;border-top:1px solid var(--rule)}
+@media (max-width:760px){.who{grid-template-columns:1fr}}
+.who p{margin:0 0 1em;max-width:58ch}
+.sig{font:700 54px/1 var(--hand);color:var(--ink)}
+h2{font:800 clamp(28px,4vw,44px)/1.05 var(--display);color:var(--ink);letter-spacing:-.025em;margin:0 0 .4em;text-wrap:balance}
+section{margin-top:72px;padding-top:28px;border-top:2px solid var(--ink)}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.lbl{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+/* the brief */
+.brief{display:grid;grid-template-columns:200px minmax(0,1fr);border:1px solid var(--ink);margin-top:20px}
+.brief dt,.brief dd{margin:0;padding:16px 18px;border-bottom:1px solid var(--rule)}
+.brief dt{font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);border-right:1px solid var(--rule)}
+.brief dd{color:var(--ink)}
+.brief dt:nth-last-of-type(1),.brief dd:last-of-type{border-bottom:0}
+.brief .big{font:800 26px/1.15 var(--display);letter-spacing:-.02em}
+@media (max-width:640px){.brief{grid-template-columns:1fr}.brief dt{border-right:0;border-bottom:0;padding-bottom:0}}
+.proofs{display:flex;flex-wrap:wrap;gap:10px 18px}
+.proofs span{white-space:nowrap}
+/* jargon remover */
+.tool{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:20px}
+@media (max-width:760px){.tool{grid-template-columns:1fr}}
+textarea{width:100%;min-height:200px;border:1px solid var(--ink);background:#fafbfc;font:400 16px/1.6 var(--display);color:var(--ink);padding:14px;resize:vertical}
+textarea:focus{outline:2px solid var(--blue);outline-offset:2px}
+.out{border:1px dashed var(--mute);padding:14px;min-height:200px;font:400 17px/1.9 var(--display);color:var(--ink)}
+.out del{color:#a7abb3;text-decoration-color:var(--pen);text-decoration-thickness:2px}
+.out ins{text-decoration:none;font:700 22px/1 var(--hand);color:var(--pen);margin:0 .2em 0 .25em}
+.verdict{margin-top:12px;font:500 13px/1.5 var(--mono);color:var(--body)}
+.verdict b{color:var(--pen)}
+/* revision history */
+.rev{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;margin-top:20px}
+@media (max-width:760px){.rev{grid-template-columns:1fr}}
+.versions{list-style:none;padding:0;margin:0;border-left:2px solid var(--rule);max-height:460px;overflow:auto}
+@media (max-width:760px){.versions{display:flex;border-left:0;border-bottom:2px solid var(--rule);overflow-x:auto;max-height:none}}
+.versions button{all:unset;cursor:pointer;display:block;padding:9px 14px;margin-left:-2px;border-left:2px solid transparent;font:500 13px/1.35 var(--mono);color:var(--mute);white-space:nowrap}
+.versions button:hover{color:var(--ink)}
+.versions button[aria-selected="true"]{border-left-color:var(--pen);color:var(--ink)}
+@media (max-width:760px){.versions button{border-left:0;border-bottom:2px solid transparent;margin:0 0 -2px}.versions button[aria-selected="true"]{border-bottom-color:var(--pen)}}
+.versions button:focus-visible{outline:2px solid var(--blue)}
+.diff{border:1px solid var(--rule);padding:22px;min-height:300px}
+.diff h3{font:800 30px/1.1 var(--display);color:var(--ink);margin:6px 0 4px;letter-spacing:-.02em}
+.diff .role{font:500 14px var(--mono);color:var(--blue)}
+.diff .add{background:#e8f6ec;border-left:3px solid #1f9d55;padding:10px 14px;margin-top:16px}
+.diff .add::before{content:"+ added";display:block;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#1f9d55;margin-bottom:6px}
+.diff .note{margin-top:16px;font:700 26px/1.05 var(--hand);color:var(--pen);transform:rotate(-1deg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips span{font:500 12px var(--mono);border:1px solid var(--ink);padding:4px 8px;color:var(--ink)}
+/* sign-off */
+form{display:grid;gap:12px;margin-top:20px;max-width:620px}
+label{display:grid;gap:6px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+input{border:0;border-bottom:2px solid var(--ink);font:400 18px/1.4 var(--display);padding:8px 2px;background:transparent;color:var(--ink)}
+input:focus{outline:none;border-bottom-color:var(--pen)}
+.signed{font:700 44px/1 var(--hand);color:var(--pen);min-height:1em;transform:rotate(-2deg)}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<article class="sheet">
+  <div class="meta">
+    <span>Draft v19 · <b>Positioning for Soniaa S.</b></span>
+    <span>Reviewer: <b>Fractional CMO</b></span>
+    <span class="stamp">Returned with edits</span>
+  </div>
+
+  <div class="draft">
+    <span class="margin-note" id="note">Too complicated. Say it plainly. — S.</span>
+    <h1 id="h1"><span class="j">A synergistic,</span> <span class="j">omnichannel</span> <span class="j">thought-leader</span> <span class="j">leveraging</span> <span class="j">holistic paradigms</span> <span class="j">to unlock</span> <span class="j">scalable value.</span></h1>
+    <div class="fix" id="fix" aria-live="polite"><span>Human messaging.</span> <span>Clear strategy.</span> <span>Meaningful growth.</span></div>
+    <div class="controls">
+      <button class="btn pen" id="replay" type="button">Run her edit again</button>
+      <span class="lbl">This is how she treats every brand she touches.</span>
+    </div>
+  </div>
+
+  <div class="who">
+    <div>
+      <p><span class="hl">Soniaa S. is a Fractional CMO based in Gurugram.</span> Over twenty years she has moved from a marketing trainee at Bosch to running demand generation, marketing operations and brand for companies in India, Dubai and the United States.</p>
+      <p>She doesn’t believe in complicating things. She focuses on simplicity and on the steps that genuinely move a business forward. <span class="hl">“I bring structure without chaos.”</span></p>
+    </div>
+    <div>
+      <div class="lbl">Approved by</div>
+      <div class="sig">Soniaa S.</div>
+      <div class="lbl" style="margin-top:6px">Hindi · English · Punjabi · French · German</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-h"><h2>The creative brief, if Soniaa were the brand.</h2><span class="lbl">Agency format · 1 page</span></div>
+    <dl class="brief">
+      <dt>Client</dt><dd>Soniaa S. · Fractional CMO</dd>
+      <dt>The problem</dt><dd>Teams that are fragmented, messaging that drifts, growth without a clear direction.</dd>
+      <dt>Single-minded proposition</dt><dd class="big">Structure <span class="mark">without</span> chaos.</dd>
+      <dt>Why believe it</dt><dd><div class="proofs"><span class="hl">1,200 opportunities, 100 closed deals</span><span class="hl">$X → $5X in 18 months</span><span class="hl">Ranked #13, Top Demand Gen Experts</span><span class="hl">Built a 15-person marketing centre</span><span class="hl">Led a team of 20+</span></div></dd>
+      <dt>Worldview</dt><dd>Brand affects revenue. Messaging affects conversion. Operations affect execution. People affect everything.</dd>
+      <dt>Tone of voice</dt><dd>Steady. Human. Plain. <span class="mark" style="font-size:24px">no jargon, ever</span></dd>
+      <dt>Credentials</dt><dd>Executive MBA, IIM Bangalore · PGDBM, Symbiosis · B.E. Electronics &amp; Telecom · Marketo Certified Expert</dd>
+    </dl>
+  </section>
+
+  <section>
+    <div class="sec-h"><h2>Hand her your copy.</h2><span class="lbl">Jargon remover · try it</span></div>
+    <p style="max-width:60ch">Paste a line from your own website, deck or LinkedIn bio. The red pen strikes the jargon and suggests the plain word, the way a good CMO would in review.</p>
+    <div class="tool">
+      <label for="copy" style="display:block"><span class="lbl" style="display:block;margin-bottom:8px">Your draft</span>
+        <textarea id="copy">We leverage best-in-class, AI-driven solutions to empower stakeholders and drive synergy across the customer journey, delivering a paradigm shift in end-to-end engagement.</textarea></label>
+      <div><span class="lbl" style="display:block;margin-bottom:8px">Returned with edits</span><div class="out" id="out" aria-live="polite"></div><div class="verdict" id="verdict"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><h2>Revision history.</h2><span class="lbl">Twenty years of tracked changes</span></div>
+    <div class="rev">
+      <ol class="versions" id="versions" role="tablist" aria-label="Career versions"></ol>
+      <div class="diff" id="diff" role="tabpanel"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><h2>Send it for her review.</h2><span class="lbl">Sign-off</span></div>
+    <p style="max-width:60ch">Tell Soniaa what you’re building and where it feels tangled. Sign at the bottom, like any brief that matters.</p>
+    <form id="form">
+      <label for="f-name">Name<input id="f-name" required maxlength="80" autocomplete="name"></label>
+      <label for="f-brand">Your brand or company<input id="f-brand" maxlength="80"></label>
+      <label for="f-line">In one line, what’s the problem?<input id="f-line" required maxlength="160"></label>
+      <button class="btn" type="submit">Sign &amp; send for review</button>
+      <div class="signed" id="signed" role="status"></div>
+    </form>
+    <p class="lbl" style="margin-top:24px">Or directly: <a href="https://www.linkedin.com/in/soniaspecialist" target="_blank" rel="noopener">linkedin.com/in/soniaspecialist ↗</a></p>
+  </section>
+</article>
+
+<script>
+(() => {
+const $ = s => document.querySelector(s), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* hero edit */
+let timers = [];
+function edit() {
+  timers.forEach(clearTimeout); timers = [];
+  const js = document.querySelectorAll('.j'), fs = document.querySelectorAll('#fix span');
+  js.forEach(j => j.classList.remove('x')); fs.forEach(f => f.classList.remove('on')); $('#note').classList.remove('on');
+  const d = reduce ? 0 : 1;
+  js.forEach((j, i) => timers.push(setTimeout(() => j.classList.add('x'), d * (700 + i * 260))));
+  timers.push(setTimeout(() => $('#note').classList.add('on'), d * (700 + js.length * 260)));
+  fs.forEach((f, i) => timers.push(setTimeout(() => f.classList.add('on'), d * (1100 + js.length * 260 + i * 420))));
+}
+edit(); $('#replay').onclick = edit;
+
+/* jargon remover */
+const J = { 'leverage':'use','leveraging':'using','leverages':'uses','synergy':'working together','synergies':'shared wins','synergistic':'joint','best-in-class':'good','world-class':'good','empower':'help','empowers':'helps','empowering':'helping','stakeholders':'people','utilize':'use','utilise':'use','paradigm':'model','paradigm shift':'change','holistic':'whole','end-to-end':'full','seamless':'smooth','robust':'strong','cutting-edge':'new','innovative':'new','disruptive':'new','ai-driven':'AI','game-changer':'big change','game-changing':'big','ideate':'think','ideation':'thinking','actionable':'useful','deep dive':'look','circle back':'follow up','move the needle':'improve results','low-hanging fruit':'easy wins','value-add':'benefit','omnichannel':'everywhere your buyers are','thought leadership':'useful ideas','thought-leader':'expert','scalable':'growing','unlock':'open','solutions':'products','drive':'grow','journey':'path','engagement':'attention','bandwidth':'time','alignment':'agreement','next-generation':'new','mission-critical':'essential','best practices':'what works','touch base':'talk' };
+const keys = Object.keys(J).sort((a, b) => b.length - a.length).map(k => k.replace(/[-\s]/g, m => m === ' ' ? '\\s+' : '-'));
+const re = new RegExp('\\b(' + keys.join('|') + ')\\b', 'gi');
+function run() {
+  const txt = $('#copy').value, out = $('#out'); out.replaceChildren(); let last = 0, hits = 0, m; re.lastIndex = 0;
+  while ((m = re.exec(txt))) {
+    out.append(document.createTextNode(txt.slice(last, m.index)));
+    const del = document.createElement('del'), ins = document.createElement('ins'); del.textContent = m[0]; ins.textContent = J[m[0].toLowerCase().replace(/\s+/g, ' ')] || 'plain word';
+    out.append(del, ins); last = m.index + m[0].length; hits++;
+  }
+  out.append(document.createTextNode(txt.slice(last)));
+  const words = (txt.match(/\S+/g) || []).length, score = words ? Math.max(0, Math.round(100 - hits / words * 400)) : 100;
+  $('#verdict').innerHTML = words ? `<b>${hits}</b> jargon ${hits === 1 ? 'term' : 'terms'} in ${words} words · clarity score <b>${score}/100</b>${hits ? '' : ' · approved'}` : 'Paste something to review.';
+}
+$('#copy').addEventListener('input', run); run();
+
+/* revision history */
+const V = [
+  ['2025','Celestial AI','Chief Marketing & Operations Advisor · Noida','Leads end-to-end marketing and operational strategy for a new startup, building structures and processes from the ground up.','Ground-up again. Still structure first.'],
+  ['2025','AYU Lifescience','Fractional Marketing Lead · Dubai','A clean, TGA-aligned brand experience for UAE’s medical buyers. Coordinates content, UI, forms, cookies and CRM tracking.','Regulated market. Clarity matters more.'],
+  ['2023','AYU Inc USA','Chief Marketing & Operations Advisor · Boston','Frameworks that align brand, marketing and operational goals. A structured, human-first approach for leaders and teams.',''],
+  ['2021','Lasersec Technologies','VP Product Marketing · Remote','Helps product and marketing teams see the bigger picture and connect initiatives across global markets.',''],
+  ['2020','Datt Mediproducts','Fractional CMO · New Delhi','Turns market and product insight into strategies that drive engagement, visibility and customer acquisition.',''],
+  ['2020','i-SmokeStack','Chief Marketing Officer · United States','Brand and growth direction for early-stage startups and global teams. Turns fragmented teams into aligned, confident growth engines.','You are reading this here.'],
+  ['2018','RoundGlass','Leader → Director, Digital Marketing','Marketing directed at clarity, purpose and measurable outcomes, tied to long-term business goals.',''],
+  ['2016','Lasersec Technologies','Director → VP Global Sales Marketing · Asia','Owned demand generation for a fast-growing packaging business. Led a team of 20+ across digital, demand, operations, web and sales development.','Team of 20+.'],
+  ['2014','Appirio','Sr. Manager → Director, Demand Gen & Sales Ops','Promoted within six months. Built the Jaipur Marketing Center, a new 15-person division. Helped grow company value from $X to $5X in 18 months.','The big one.'],
+  ['2013','ShowMeLeads Inc','Manager → Sr. Manager, Demand Gen & Automation','1,200 new opportunities and 100 closed deals in 2014. Nurture campaigns on Marketo and Salesforce with an 80% delivery rate.','Real numbers.'],
+  ['2013','Sonia Specialist','Digital Consultant → Consulting Specialist','Known in the market as “Sonia Specialist”. Free consultancy to help startups become modern marketers.',''],
+  ['2013','Brand Tadkaa','Founder & CEO → Advisory Board','Founded the company, then advised it, helping build pipeline and revenue.',''],
+  ['2010','Creaform Inc.','Head of Marketing and Sales','Lead nurturing that turned existing prospects into sales-qualified leads, in step with marketing ops and sales.',''],
+  ['2008','FARO Technologies','Marketing & Communication Manager · India → Asia','Corporate marketing strategy and measurement. Owned the sales toolkit, website and knowledge base.',''],
+  ['2006','Bosch','Trainee → Marketing Specialist · Bengaluru, Hong Kong','Product launches from idea to implementation. A competitive SWOT analysis with Carnegie Mellon University.','v1. Where it started.'],
+];
+const list = $('#versions'), diff = $('#diff');
+function show(i) {
+  list.querySelectorAll('button').forEach((b, j) => { b.setAttribute('aria-selected', j === i); b.tabIndex = j === i ? 0 : -1; });
+  const [y, o, r, p, n] = V[i]; diff.replaceChildren();
+  const lb = document.createElement('div'); lb.className = 'lbl'; lb.textContent = `v${y} · ${i === 0 ? 'current' : 'earlier version'}`;
+  const h = document.createElement('h3'); h.textContent = o;
+  const ro = document.createElement('div'); ro.className = 'role'; ro.textContent = r;
+  const a = document.createElement('div'); a.className = 'add'; a.textContent = p;
+  diff.append(lb, h, ro, a);
+  if (n) { const no = document.createElement('div'); no.className = 'note'; no.textContent = n; diff.append(no); }
+}
+V.forEach(([y, o], i) => { const li = document.createElement('li'), b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'tab'); b.textContent = `v${y} · ${o}`; b.onclick = () => show(i);
+  b.onkeydown = e => { if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); const k = Math.min(V.length - 1, i + 1); show(k); list.querySelectorAll('button')[k].focus(); } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); const k = Math.max(0, i - 1); show(k); list.querySelectorAll('button')[k].focus(); } };
+  li.append(b); list.append(li); });
+show(0);
+
+/* sign-off */
+$('#form').addEventListener('submit', e => { e.preventDefault(); const n = $('#f-name').value.trim(); if (!n || !$('#f-line').value.trim()) return;
+  $('#signed').textContent = n + ' · sent for review'; e.target.querySelector('button').textContent = 'Sent';
+  // Prototype: in the Next.js build this posts to /api/message
+});
+})();
+</script>

@@ -1,0 +1,212 @@
+<title>Soniaa Billboard Drive</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Sora:wght@400;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a 900vh scroll track drives a sticky 3D road at dusk; billboards carry her positioning as an out-of-home campaign. Single committed night look. */
+:root{
+  --sky-top:#140f2b; --sky-low:#3a1f4a; --haze:#ff5c7a; --sodium:#ffb547; --asphalt:#0e0c17; --paper:#f6f1e7; --ink:#15111f; --mute:#a59bb8;
+  --display:"Big Shoulders Display",Impact,"Arial Narrow",sans-serif;
+  --text:"Sora",ui-sans-serif,system-ui,sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--asphalt);color:var(--paper);font:16px/1.6 var(--text);overflow-x:hidden}
+.track{height:900vh;position:relative}
+.scene{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:linear-gradient(var(--sky-top) 0%,var(--sky-low) 38%,#7a2f52 44%,var(--asphalt) 44.2%)}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.boards{position:absolute;inset:0;pointer-events:none}
+.bb{position:absolute;left:0;top:0;width:800px;height:450px;transform-origin:0 0;will-change:transform,opacity;display:grid;padding:34px 40px;
+  box-shadow:0 0 0 10px #221c30,0 0 120px rgba(255,181,71,.25)}
+.bb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,220,160,.18),transparent 30%);pointer-events:none}
+.bb .k{font:500 18px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+.bb h2{margin:0;font:900 120px/.86 var(--display);text-transform:uppercase;letter-spacing:-.01em;align-self:end}
+.bb p{margin:0;font:600 26px/1.25 var(--text);max-width:30ch}
+.bb .src{font:500 15px/1 var(--mono);opacity:.65;align-self:end}
+.s1{background:var(--paper);color:var(--ink)}
+.s2{background:var(--sodium);color:var(--ink)}
+.s3{background:var(--haze);color:#1a0b14}
+.s4{background:#221a3d;color:var(--paper);border:6px solid var(--sodium)}
+.s4 h2{color:var(--sodium)}
+.big-num{font:900 230px/.8 var(--display)!important}
+/* HUD */
+.hud{position:absolute;inset:auto 0 0 0;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));font:500 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute);pointer-events:none}
+.gauge b{display:block;font:900 54px/1 var(--display);color:var(--sodium);letter-spacing:0;font-variant-numeric:tabular-nums}
+.top{position:absolute;inset:0 0 auto 0;display:flex;justify-content:space-between;gap:16px;padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));font:500 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.top b{color:var(--paper)}
+.intro{position:absolute;left:50%;top:16%;transform:translateX(-50%);text-align:center;width:min(92vw,760px);transition:opacity .4s}
+.intro h1{margin:0;font:900 clamp(56px,10vw,128px)/.85 var(--display);text-transform:uppercase;color:var(--paper);letter-spacing:-.01em}
+.intro h1 span{color:var(--sodium)}
+.intro p{margin:14px auto 0;font:400 15px/1.5 var(--text);color:var(--mute);max-width:44ch}
+.cue{display:inline-block;margin-top:18px;font:500 12px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--sodium);animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+.now{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));font:500 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--paper);text-align:center;max-width:60vw}
+/* After the drive */
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.after{padding-block:96px;border-top:1px solid #2a2340}
+.after h3{font:900 clamp(44px,7vw,88px)/.9 var(--display);text-transform:uppercase;margin:0 0 24px;color:var(--paper)}
+.after h3 span{color:var(--sodium)}
+.lbl{font:500 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--haze)}
+.exits{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:14px}
+.exit{background:#17602f;color:#fff;border:3px solid #fff;border-radius:8px;padding:14px 16px;box-shadow:0 0 0 3px #17602f}
+.exit small{display:inline-block;background:#fff;color:#17602f;font:700 11px/1 var(--mono);padding:4px 6px;border-radius:3px;letter-spacing:.08em}
+.exit b{display:block;font:700 26px/1 var(--display);text-transform:uppercase;margin:10px 0 4px;letter-spacing:.02em}
+.exit span{font:400 13px/1.4 var(--text)}
+form{display:grid;gap:12px;max-width:620px;margin-top:28px}
+label{display:grid;gap:6px;font:500 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+input,textarea{background:#1b1630;border:1px solid #3a3157;color:var(--paper);font:400 16px/1.5 var(--text);padding:12px 14px}
+input:focus,textarea:focus{outline:2px solid var(--sodium);outline-offset:0;border-color:transparent}
+button{justify-self:start;background:var(--sodium);color:var(--ink);border:0;font:900 22px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;padding:14px 22px;cursor:pointer}
+.ok{font:500 14px var(--mono);color:var(--sodium);min-height:1.4em}
+a{color:var(--sodium)}
+:focus-visible{outline:2px solid var(--sodium);outline-offset:3px}
+@media (max-width:640px){.gauge b{font-size:38px}.now{display:none}}
+@media (prefers-reduced-motion:reduce){.cue{animation:none}}
+</style>
+
+<div class="track" id="track">
+  <div class="scene" id="scene">
+    <canvas id="cv" aria-hidden="true"></canvas>
+    <div class="boards" id="boards"></div>
+    <div class="top"><span><b>Campaign</b> · Soniaa S. · Fractional CMO</span><span>NH-48 · Gurugram</span></div>
+    <div class="intro" id="intro">
+      <h1>Twenty years.<br><span>One route.</span></h1>
+      <p>A CMO’s positioning, run as an out-of-home campaign. Every billboard is a fact from her record.</p>
+      <div class="cue">Scroll to drive ↓</div>
+    </div>
+    <div class="hud">
+      <div class="gauge">Odometer<b id="odo">2006</b></div>
+      <div class="gauge" style="text-align:right">Billboards seen<b id="seen">0/9</b></div>
+    </div>
+    <div class="now" id="now"></div>
+  </div>
+</div>
+
+<section class="after">
+  <div class="wrap">
+    <div class="lbl">Exits on the route</div>
+    <h3>Where the road <span>went.</span></h3>
+    <div class="exits" id="exits"></div>
+  </div>
+</section>
+
+<section class="after">
+  <div class="wrap">
+    <div class="lbl">Next exit</div>
+    <h3>Rent the last <span>billboard.</span></h3>
+    <p style="max-width:56ch;color:var(--mute)">Tell Soniaa what your brand needs to say. Your line gets painted on the final billboard of this route, right now.</p>
+    <form id="form">
+      <label for="n">Your name<input id="n" required maxlength="60" autocomplete="name"></label>
+      <label for="msg">Your billboard line (max 60 characters)<input id="msg" required maxlength="60" placeholder="We need one message, not twelve."></label>
+      <button type="submit">Put it up</button>
+      <div class="ok" id="ok" role="status"></div>
+    </form>
+    <p style="margin-top:28px;font:500 13px var(--mono);color:var(--mute)">Or directly: <a href="https://www.linkedin.com/in/soniaspecialist" target="_blank" rel="noopener">linkedin.com/in/soniaspecialist ↗</a></p>
+  </div>
+</section>
+
+<script>
+(() => {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const B = [
+  { s:'s1', k:'Now showing', h:'Soniaa S.', p:'Fractional CMO. Human messaging, clear strategy & meaningful growth.', src:'Gurugram, India' },
+  { s:'s2', k:'Positioning', h:'Structure<br>without chaos.', p:'', src:'— from her own summary' },
+  { s:'s4', k:'ShowMeLeads · 2014', h:'<span class="big-num">1,200</span>', p:'new opportunities and 100 closed deals in one year.', src:'Demand gen & lead management' },
+  { s:'s3', k:'Appirio · 18 months', h:'$X → $5X', p:'Company value, through demand generation and data optimisation.', src:'Promoted to Director in 6 months' },
+  { s:'s1', k:'Ranked', h:'<span class="big-num">#13</span>', p:'Top Demand Generation Experts, 2014.', src:'Plus Sales Ops Professional of the Year, 2012' },
+  { s:'s2', k:'How she sees a company', h:'People affect<br>everything.', p:'Brand affects revenue. Messaging affects conversion. Operations affect execution.', src:'' },
+  { s:'s4', k:'Built, not inherited', h:'15 → JMC', p:'Built the Jaipur Marketing Center from zero. Later led a team of 20+ at Lasersec.', src:'Appirio · Lasersec Technologies' },
+  { s:'s3', k:'Speaks to markets in', h:'Namaste.<br>Bonjour. Hallo.', p:'Hindi · English · Punjabi · French · German', src:'' },
+  { s:'s1', k:'Your line here', h:'This space<br>is yours.', p:'Scroll on and rent it.', src:'Final billboard', last:true },
+];
+const exits = [
+  ['2025','Celestial AI','Chief Marketing & Operations Advisor'],['2025','AYU Lifescience','Fractional Marketing Lead · Dubai'],
+  ['2023','AYU Inc USA','Chief Marketing & Operations Advisor'],['2021','Lasersec','VP Product Marketing'],
+  ['2020','Datt Mediproducts','Fractional CMO'],['2020','i-SmokeStack','Chief Marketing Officer'],
+  ['2018','RoundGlass','Director, Digital Marketing'],['2016','Lasersec','VP Global Sales Marketing'],
+  ['2014','Appirio','Director, Demand Gen & Sales Ops'],['2013','ShowMeLeads','Sr. Mgr, Demand Gen & Automation'],
+  ['2013','Sonia Specialist','Consulting Specialist'],['2013','Brand Tadkaa','Founder & CEO'],
+  ['2010','Creaform','Head of Marketing and Sales'],['2008','FARO','Marketing & Comms Manager, Asia'],['2006','Bosch','Marketing Specialist'],
+];
+const ex = document.getElementById('exits');
+exits.forEach(([y,o,r]) => { const d = document.createElement('div'); d.className = 'exit'; d.innerHTML = `<small>EXIT ${y}</small><b></b><span></span>`; d.querySelector('b').textContent = o; d.querySelector('span').textContent = r; ex.append(d); });
+
+const wrap = document.getElementById('boards');
+const els = B.map((b, i) => { const d = document.createElement('div'); d.className = 'bb ' + b.s;
+  d.innerHTML = `<div class="k">${b.k}</div><h2>${b.h}</h2>${b.p ? `<p>${b.p}</p>` : ''}<div class="src">${b.src}</div>`; wrap.append(d); return d; });
+
+const cv = document.getElementById('cv'), cx = cv.getContext('2d'), track = document.getElementById('track');
+let W, H, dpr = Math.min(devicePixelRatio || 1, 2), sky = [];
+const GAP = 34, START = 26, END = START + GAP * (B.length - 1) + 14;
+function size() {
+  W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  sky = []; let x = 0; while (x < W) { const w = 14 + Math.random() * 46; sky.push([x, w, 20 + Math.random() * (H * .14), Math.random()]); x += w + 2; }
+}
+size(); addEventListener('resize', size);
+
+let camZ = 0, target = 0, lastZ = 0;
+const prog = () => { const r = track.getBoundingClientRect(); return Math.max(0, Math.min(1, -r.top / (r.height - innerHeight))); };
+function proj(X, Y, d) { const f = Math.min(W, H * 1.4) * .9, hz = H * .44; return [W / 2 + X * f / d, hz + (1.7 - Y) * f / d, f / d]; }
+
+function frame() {
+  target = prog() * END; camZ += reduce ? target - camZ : (target - camZ) * .12;
+  const hz = H * .44, narrow = W < 640;
+  cx.clearRect(0, 0, W, H);
+  // sun + skyline
+  const g = cx.createRadialGradient(W / 2, hz, 4, W / 2, hz, H * .45); g.addColorStop(0, 'rgba(255,120,110,.55)'); g.addColorStop(1, 'rgba(255,92,122,0)');
+  cx.fillStyle = g; cx.fillRect(0, 0, W, hz);
+  cx.fillStyle = '#ffcf8a'; cx.beginPath(); cx.arc(W / 2, hz, Math.min(W, H) * .07, Math.PI, 0); cx.fill();
+  const par = camZ * .6;
+  for (const [x, w, h, r] of sky) { const xx = ((x - par) % W + W) % W; cx.fillStyle = '#1a1230'; cx.fillRect(xx, hz - h, w, h);
+    if (r > .5) { cx.fillStyle = 'rgba(255,181,71,.55)'; for (let wy = hz - h + 6; wy < hz - 4; wy += 9) if ((wy * 7 + x) % 3 < 1.2) cx.fillRect(xx + 4, wy, 3, 3); } }
+  // road
+  const RW = narrow ? 3.2 : 4;
+  const [lx1, y1] = proj(-RW, 0, 1.2), [rx1] = proj(RW, 0, 1.2), [lx2, y2] = proj(-RW, 0, 400), [rx2] = proj(RW, 0, 400);
+  cx.fillStyle = '#16131f'; cx.beginPath(); cx.moveTo(lx1, y1); cx.lineTo(rx1, y1); cx.lineTo(rx2, y2); cx.lineTo(lx2, y2); cx.fill();
+  cx.strokeStyle = 'rgba(246,241,231,.5)'; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(lx1, y1); cx.lineTo(lx2, y2); cx.moveTo(rx1, y1); cx.lineTo(rx2, y2); cx.stroke();
+  // lane dashes
+  cx.fillStyle = '#ffb547';
+  for (let z = Math.ceil(camZ / 4) * 4; z < camZ + 160; z += 4) { const d = z - camZ; if (d < 1.2) continue;
+    const [a, ya, s] = proj(-.08, 0, d), [, yb] = proj(-.08, 0, d + 1.6); cx.globalAlpha = Math.min(1, 60 / d); cx.fillRect(a, yb, Math.max(1, .16 * s), ya - yb); }
+  cx.globalAlpha = 1;
+  // streetlights
+  for (let z = Math.ceil(camZ / 12) * 12; z < camZ + 200; z += 12) { const d = z - camZ; if (d < 1.5) continue;
+    for (const side of [-1, 1]) { const X = side * (RW + 1.2), [px, py, s] = proj(X, 0, d), [, ty] = proj(X, 6, d);
+      cx.strokeStyle = 'rgba(40,30,60,.9)'; cx.lineWidth = Math.max(1, .12 * s); cx.beginPath(); cx.moveTo(px, py); cx.lineTo(px, ty); cx.stroke();
+      const gl = cx.createRadialGradient(px, ty, 0, px, ty, 1.4 * s); gl.addColorStop(0, 'rgba(255,181,71,.9)'); gl.addColorStop(1, 'rgba(255,181,71,0)');
+      cx.fillStyle = gl; cx.globalAlpha = Math.min(1, 80 / d); cx.beginPath(); cx.arc(px, ty, 1.4 * s, 0, 7); cx.fill(); cx.globalAlpha = 1; } }
+  // billboards
+  let seen = 0, nearest = null, nd = 1e9;
+  els.forEach((el, i) => {
+    const z = START + i * GAP, d = z - camZ, side = i % 2 ? 1 : -1;
+    if (d < 0) seen++;
+    if (d < 1.4 || d > 230) { el.style.opacity = 0; return; }
+    const bw = narrow ? 5.4 : 8, X = side * (RW + 1.6) + (side > 0 ? 0 : -bw), bottom = 3.2, top = bottom + bw * 450 / 800;
+    const [sx, sy, s] = proj(X, top, d), [, by] = proj(X, bottom, d), [px] = proj(X + bw / 2, 0, d), [, gy] = proj(0, 0, d);
+    cx.strokeStyle = '#2a2240'; cx.lineWidth = Math.max(1, .25 * s); cx.beginPath(); cx.moveTo(px, by); cx.lineTo(px, gy); cx.stroke();
+    const scale = (bw * s) / 800;
+    el.style.transform = `translate(${sx}px,${sy}px) scale(${scale})`;
+    el.style.opacity = Math.min(1, (230 - d) / 60) * Math.min(1, (d - 1.4) / 2);
+    el.style.zIndex = Math.round(1000 - d);
+    if (d > 2 && d < nd) { nd = d; nearest = i; }
+  });
+  document.getElementById('seen').textContent = `${seen}/${B.length}`;
+  document.getElementById('odo').textContent = Math.round(2006 + (camZ / END) * 20);
+  document.getElementById('intro').style.opacity = Math.max(0, 1 - camZ / 10);
+  document.getElementById('now').textContent = nearest != null && nd < 60 ? 'Approaching · ' + B[nearest].k : '';
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+document.getElementById('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = document.getElementById('n').value.trim(), m = document.getElementById('msg').value.trim();
+  if (!n || !m) return;
+  const last = els[els.length - 1]; last.querySelector('.k').textContent = 'Rented by ' + n; last.querySelector('h2').textContent = m;
+  last.querySelector('p').textContent = 'Message received. Soniaa will be in touch.'; last.className = 'bb s2';
+  document.getElementById('ok').textContent = 'Your line is up. Scroll back to drive past it.';
+  // Prototype: in the Next.js build this posts to /api/message
+});
+})();
+</script>

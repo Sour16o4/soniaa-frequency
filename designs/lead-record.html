@@ -1,0 +1,229 @@
+<title>Soniaa Lead Record</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Martian+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: her page is a marketing-automation console. Left: the funnel content (TOFU to SQL). Right: a sticky lead record scoring the visitor live. */
+:root{
+  --bg:#eceff5; --panel:#ffffff; --ink:#0d1733; --body:#3b4560; --mute:#7a8399; --line:#d6dbe6;
+  --cobalt:#2b46ff; --cobalt-2:#dfe4ff; --hot:#ff5a36; --hot-2:#ffe5de;
+  --display:"Archivo",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Martian Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0f1f;--panel:#111a33;--ink:#eef1fb;--body:#b8c0d8;--mute:#7d87a3;--line:#24304f;--cobalt:#7d8dff;--cobalt-2:#1b2556;--hot:#ff7a5c;--hot-2:#3a1c17;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a0f1f;--panel:#111a33;--ink:#eef1fb;--body:#b8c0d8;--mute:#7d87a3;--line:#24304f;--cobalt:#7d8dff;--cobalt-2:#1b2556;--hot:#ff7a5c;--hot-2:#3a1c17;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--body);font:16px/1.6 var(--display);font-stretch:100%}
+.shell{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;padding-block:24px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:960px){.shell{grid-template-columns:1fr}}
+.mono{font-family:var(--mono)}
+.tag{font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+h1,h2{font-family:var(--display);color:var(--ink);font-stretch:125%;font-weight:900;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(46px,8vw,104px);line-height:.9;margin:.25em 0 .2em;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--cobalt)}
+h2{font-size:clamp(28px,4vw,44px);line-height:1;margin:.3em 0 .4em}
+.stage{background:var(--panel);border:1px solid var(--line);padding:clamp(20px,4vw,44px);margin-bottom:20px;position:relative}
+.stage-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px dashed var(--line);padding-bottom:12px;margin-bottom:8px}
+.pill{font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;border:1px solid var(--line);color:var(--mute)}
+.pill.on{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+.lede{font-size:clamp(17px,1.8vw,20px);max-width:58ch;color:var(--body)}
+/* funnel strip */
+.funnel{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:24px 0 0}
+.funnel div{height:56px;background:var(--cobalt-2);clip-path:polygon(0 0,92% 0,100% 50%,92% 100%,0 100%,8% 50%);display:grid;place-items:center;font:600 10px/1 var(--mono);letter-spacing:.08em;color:var(--mute);text-transform:uppercase;transition:background .4s,color .4s}
+.funnel div:first-child{clip-path:polygon(0 0,92% 0,100% 50%,92% 100%,0 100%)}
+.funnel div.on{background:var(--cobalt);color:#fff}
+/* proof cards */
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
+.proof button{all:unset;cursor:pointer;background:var(--panel);padding:20px;display:grid;gap:6px;transition:background .2s}
+.proof button:hover,.proof button:focus-visible{background:var(--cobalt-2)}
+.proof button:focus-visible{outline:2px solid var(--cobalt);outline-offset:-2px}
+.proof b{font:900 clamp(34px,4vw,48px)/1 var(--display);font-stretch:125%;color:var(--ink);font-variant-numeric:tabular-nums}
+.proof span{font-size:14px;line-height:1.4}
+.proof small{font:600 10px/1.4 var(--mono);color:var(--mute);letter-spacing:.06em;text-transform:uppercase}
+.proof .opened{background:var(--cobalt-2)}
+.proof .why{display:none;font-size:13px;color:var(--body);border-top:1px solid var(--line);padding-top:8px}
+.proof .opened .why{display:block}
+/* how she works */
+.rules{display:grid;gap:10px;margin-top:16px}
+.rule{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;font:600 13px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink)}
+.rule i{height:2px;background:var(--line);position:relative;min-width:40px}
+.rule i::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:8px solid var(--line);border-right:0}
+.rule span:last-child{text-align:right;color:var(--cobalt)}
+.rule:hover i,.rule:hover i::after{background:var(--cobalt);border-left-color:var(--cobalt)}
+/* timeline as campaign table */
+.tbl{overflow-x:auto;margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th{font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);text-align:left;padding:10px 8px;border-bottom:2px solid var(--ink)}
+td{padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{font:500 12px var(--mono);color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+td b{color:var(--ink)}
+.st{font:600 10px/1 var(--mono);padding:4px 6px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.st.live{background:var(--hot-2);color:var(--hot)}.st.done{background:var(--cobalt-2);color:var(--cobalt)}
+/* form */
+form{display:grid;gap:12px;margin-top:16px;max-width:560px}
+label{display:grid;gap:6px;font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+input,textarea,select{background:var(--bg);border:1px solid var(--line);color:var(--ink);font:400 16px/1.4 var(--display);padding:12px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--cobalt);border-color:transparent}
+.cta{justify-self:start;background:var(--hot);color:#fff;border:0;font:800 15px/1 var(--display);font-stretch:125%;text-transform:uppercase;letter-spacing:.04em;padding:16px 22px;cursor:pointer}
+/* lead record */
+aside{position:sticky;top:calc(24px + env(safe-area-inset-top,0px));align-self:start;background:var(--ink);color:#cfd6ee;padding:22px;display:grid;gap:18px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) aside{background:#050916}}
+:root[data-theme="dark"] aside{background:#050916}
+aside .tag{color:#7f8bb3}
+.score{display:flex;align-items:baseline;gap:10px}
+.score b{font:900 84px/.9 var(--display);font-stretch:125%;color:#fff;font-variant-numeric:tabular-nums}
+.score span{font:600 12px var(--mono);color:#7f8bb3}
+.meter{height:8px;background:#1c2647;position:relative}
+.meter i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#7d8dff,#ff5a36);width:0;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.meter u{position:absolute;top:-4px;bottom:-4px;width:2px;background:#fff;opacity:.5}
+.stagebox{font:900 22px/1 var(--display);font-stretch:125%;text-transform:uppercase;color:#fff}
+.stagebox small{display:block;font:600 10px/1.6 var(--mono);color:#7f8bb3;letter-spacing:.06em;text-transform:none;margin-top:6px}
+.log{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:240px;overflow:auto;font:400 11px/1.5 var(--mono)}
+.log li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;animation:in .4s}
+.log time{color:#56618a}.log em{font-style:normal;color:#9fe3b5}
+@keyframes in{from{opacity:0;transform:translateX(8px)}}
+.fields{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font:400 11px/1.5 var(--mono)}
+.fields dt{color:#56618a}.fields dd{margin:0;color:#cfd6ee;overflow-wrap:anywhere}
+.disclose{font:400 10px/1.5 var(--mono);color:#56618a}
+@media (max-width:960px){
+  aside{position:fixed;inset:auto 0 0 0;top:auto;z-index:30;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;
+    padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  aside .full{display:none}
+  .score b{font-size:40px}
+  .stagebox{font-size:15px}
+}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="shell">
+<main>
+  <section class="stage" data-stage="0" data-pts="5" data-why="Opened the page">
+    <div class="stage-head"><span class="tag">Campaign · Soniaa S. · Inbound</span><span class="pill on">TOFU · Awareness</span></div>
+    <h1>You are now<br>a <em>lead.</em></h1>
+    <p class="lede">Soniaa S. has spent twenty years in demand generation: lead scoring models, nurture tracks, Marketo and Salesforce. So this page does to you what she has done for her clients. As you read, you get scored. Your record is on the right.</p>
+    <div class="funnel" id="funnel" aria-label="Funnel stages"><div>Visitor</div><div>Lead</div><div>MQL</div><div>SAL</div><div>SQL</div></div>
+  </section>
+
+  <section class="stage" data-stage="1" data-pts="10" data-why="Read the positioning">
+    <div class="stage-head"><span class="tag">Asset 01 · Positioning</span><span class="pill">TOFU · Interest</span></div>
+    <h2>Fractional CMO. Human messaging, clear strategy &amp; meaningful growth.</h2>
+    <p class="lede">“I bring structure without chaos. I help teams feel more confident and connected in what they’re building.” Based in Gurugram. Advising teams in India, Dubai and the United States.</p>
+  </section>
+
+  <section class="stage" data-stage="2" data-pts="15" data-why="Viewed proof points">
+    <div class="stage-head"><span class="tag">Asset 02 · Proof · click to open the source</span><span class="pill">MOFU · Consideration</span></div>
+    <h2>The numbers she has signed her name to.</h2>
+    <div class="proof" id="proof">
+      <button type="button"><small>ShowMeLeads · 2014</small><b>1,200</b><span>new opportunities in one year</span><span class="why">Through demand generation and lead management strategy.</span></button>
+      <button type="button"><small>ShowMeLeads · 2014</small><b>100</b><span>closed deals</span><span class="why">Same year, same programme. Funnel from prospect to lead to customer.</span></button>
+      <button type="button"><small>Marketo + Salesforce</small><b>80%</b><span>email delivery rate</span><span class="why">On lead-nurturing campaigns.</span></button>
+      <button type="button"><small>Appirio · 18 months</small><b>5×</b><span>company value, $X to $5X</span><span class="why">Through demand generation and data optimisation programmes.</span></button>
+      <button type="button"><small>Appirio</small><b>6 mo</b><span>to promotion</span><span class="why">From Sr. Demand Gen Manager to Director, Demand Gen &amp; Sales Ops.</span></button>
+      <button type="button"><small>Ranked · 2014</small><b>#13</b><span>Top Demand Generation Experts</span><span class="why">Also Sales Operations Professional of the Year, 2012.</span></button>
+    </div>
+  </section>
+
+  <section class="stage" data-stage="3" data-pts="20" data-why="Studied the operating model">
+    <div class="stage-head"><span class="tag">Asset 03 · Operating model</span><span class="pill">MOFU · Evaluation</span></div>
+    <h2>How she reads a company.</h2>
+    <p class="lede">Leadership, in her words, lies in seeing the whole picture.</p>
+    <div class="rules">
+      <div class="rule"><span>Brand</span><i></i><span>Revenue</span></div>
+      <div class="rule"><span>Messaging</span><i></i><span>Conversion</span></div>
+      <div class="rule"><span>Operations</span><i></i><span>Execution</span></div>
+      <div class="rule"><span>People</span><i></i><span>Everything</span></div>
+    </div>
+  </section>
+
+  <section class="stage" data-stage="3" data-pts="20" data-why="Reviewed account history">
+    <div class="stage-head"><span class="tag">Asset 04 · Account history</span><span class="pill">BOFU · Intent</span></div>
+    <h2>Accounts, newest first.</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Since</th><th>Account</th><th>Role</th><th>Status</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section class="stage" id="convert" data-stage="4" data-pts="10" data-why="Reached the conversion form">
+    <div class="stage-head"><span class="tag">Asset 05 · Conversion</span><span class="pill">BOFU · Sales-qualified</span></div>
+    <h2>Raise your hand.</h2>
+    <p class="lede">Submit this and your record is routed to Soniaa as a sales-qualified lead. A real person reads it.</p>
+    <form id="form">
+      <label for="f-name">Name<input id="f-name" required maxlength="80" autocomplete="name"></label>
+      <label for="f-co">Company<input id="f-co" maxlength="80" autocomplete="organization"></label>
+      <label for="f-need">What do you need?<select id="f-need"><option>Brand &amp; messaging clarity</option><option>Demand generation &amp; pipeline</option><option>Marketing operations &amp; structure</option><option>A fractional CMO</option></select></label>
+      <label for="f-note">Context<textarea id="f-note" rows="4" maxlength="800" placeholder="Where does growth stall for you today?"></textarea></label>
+      <button class="cta" type="submit">Route me to Soniaa</button>
+    </form>
+  </section>
+</main>
+
+<aside aria-label="Your lead record" id="rec">
+  <div class="full tag">Lead record · live</div>
+  <div class="score"><b id="score">0</b><span class="full">/ 100</span></div>
+  <div class="stagebox" id="stage">Visitor<small class="full" id="stageNote">Anonymous. Scroll to engage.</small></div>
+  <div class="meter full" aria-hidden="true"><i id="bar"></i><u style="left:40%"></u><u style="left:70%"></u></div>
+  <dl class="fields full">
+    <dt>ID</dt><dd id="lid"></dd>
+    <dt>Source</dt><dd id="src"></dd>
+    <dt>Time</dt><dd id="tt">0s</dd>
+    <dt>Device</dt><dd id="dev"></dd>
+  </dl>
+  <div class="full"><div class="tag" style="margin-bottom:8px">Activity</div><ol class="log" id="log"></ol></div>
+  <p class="disclose full">Scored only in your browser for this prototype. Nothing personal is stored until you submit the form.</p>
+</aside>
+</div>
+
+<script>
+(() => {
+const $ = s => document.querySelector(s);
+const rows = [
+  ['May 2025','Celestial AI','Chief Marketing & Operations Advisor','live'],['Apr 2025','AYU Lifescience','Fractional Marketing Lead · Dubai','live'],
+  ['Jan 2023','AYU Inc USA','Chief Marketing & Operations Advisor','live'],['Feb 2021','Lasersec Technologies','VP Product Marketing','live'],
+  ['Apr 2020','Datt Mediproducts','Fractional CMO','live'],['Mar 2020','i-SmokeStack','Chief Marketing Officer','live'],
+  ['Oct 2016','Sonia Specialist','Consulting Specialist','live'],['Apr 2019','RoundGlass','Director, Digital Marketing','done'],
+  ['Dec 2016','Lasersec Technologies','VP Global Sales Marketing · team of 20+','done'],['Jan 2015','Appirio','Director, Demand Gen, Marketing & Sales Ops','done'],
+  ['Jan 2014','ShowMeLeads Inc','Sr. Manager, Demand Gen & Marketing Automation','done'],['Jan 2013','Brand Tadkaa','Founder & CEO, then Advisory Board','done'],
+  ['Sep 2010','Creaform Inc.','Head of Marketing and Sales','done'],['May 2008','FARO Technologies','Marketing & Communication Manager, Asia','done'],
+  ['Nov 2006','Bosch','Marketing Specialist · India & Hong Kong','done'],
+];
+const tb = $('#rows');
+rows.forEach(([d, a, r, s]) => { const tr = document.createElement('tr'); [d, a, r].forEach((v, i) => { const td = document.createElement('td'); if (i === 1) { const b = document.createElement('b'); b.textContent = v; td.append(b); } else td.textContent = v; tr.append(td); });
+  const td = document.createElement('td'), sp = document.createElement('span'); sp.className = 'st ' + s; sp.textContent = s === 'live' ? 'Active' : 'Closed-won'; td.append(sp); tr.append(td); tb.append(tr); });
+
+let score = 0, t0 = Date.now(); const STAGES = [['Visitor','Anonymous. Scroll to engage.'],['Lead','Known interest. Nurture track A.'],['MQL','Marketing-qualified. Score over 40.'],['SAL','Sales-accepted. Score over 70.'],['SQL','Routed to Soniaa.']];
+$('#lid').textContent = 'L-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+$('#src').textContent = document.referrer ? new URL(document.referrer).hostname : 'Direct / dark social';
+$('#dev').textContent = innerWidth < 700 ? 'Mobile' : innerWidth < 1100 ? 'Tablet' : 'Desktop';
+const fmt = () => { const s = Math.round((Date.now() - t0) / 1000); return s < 60 ? s + 's' : Math.floor(s / 60) + 'm ' + (s % 60) + 's'; };
+function stageFor(s, forced) { return forced != null ? forced : s >= 70 ? 3 : s >= 40 ? 2 : s >= 10 ? 1 : 0; }
+let forced = null;
+function add(pts, why) {
+  score = Math.min(100, score + pts);
+  const li = document.createElement('li'), tm = document.createElement('time'), w = document.createElement('span'), p = document.createElement('em');
+  tm.textContent = fmt(); w.textContent = why; p.textContent = '+' + pts; li.append(tm, w, p); $('#log').prepend(li);
+  render();
+}
+function render() {
+  const st = stageFor(score, forced);
+  const n = $('#score'), from = +n.textContent, to = score, t = performance.now();
+  (function tick(now) { const k = Math.min(1, (now - t) / 500); n.textContent = Math.round(from + (to - from) * k); if (k < 1) requestAnimationFrame(tick); })(t);
+  $('#bar').style.width = score + '%';
+  $('#stage').firstChild.textContent = STAGES[st][0]; $('#stageNote').textContent = STAGES[st][1];
+  document.querySelectorAll('#funnel div').forEach((d, i) => d.classList.toggle('on', i <= st));
+}
+const done = new Set();
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !done.has(e.target)) { done.add(e.target); add(+e.target.dataset.pts, e.target.dataset.why);
+  e.target.querySelector('.pill')?.classList.add('on'); } }), { threshold: .45 });
+document.querySelectorAll('.stage').forEach(s => io.observe(s));
+document.querySelectorAll('#proof button').forEach(b => b.addEventListener('click', () => { const was = b.classList.toggle('opened'); if (was && !b.dataset.c) { b.dataset.c = 1; add(3, 'Opened proof: ' + b.querySelector('small').textContent); } }));
+setInterval(() => { $('#tt').textContent = fmt(); }, 1000);
+setTimeout(() => add(5, 'Dwell time over 30s'), 30000);
+$('#form').addEventListener('submit', e => {
+  e.preventDefault(); const n = $('#f-name').value.trim(); if (!n) { $('#f-name').focus(); return; }
+  forced = 4; add(Math.max(0, 100 - score), 'Form submitted: ' + $('#f-need').value);
+  const btn = e.target.querySelector('button'); btn.textContent = 'Routed. Soniaa will reply.'; btn.disabled = true;
+  // Prototype: in the Next.js build this posts the lead + its activity log to /api/message
+});
+})();
+</script>
