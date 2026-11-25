@@ -7,7 +7,7 @@ export async function POST(req) {
     const { sid, type, value } = await readJson(req);
     if (!TYPES.has(type) || !clip(sid, 64)) return Response.json({ error: 'Unknown event.' }, { status: 400 });
     if (type === 'section' && !SECTIONS.includes(value)) return Response.json({ error: 'Unknown section.' }, { status: 400 });
-    addEvent(clip(sid, 64), type, clip(value, 80));
+    await addEvent(clip(sid, 64), type, clip(value, 80));
     return new Response(null, { status: 204 });
   } catch { return Response.json({ error: 'Bad request.' }, { status: 400 }); }
 }
