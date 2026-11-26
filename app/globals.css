@@ -224,7 +224,6 @@ input:focus,textarea:focus{outline:none;border-color:var(--amber);box-shadow:0 0
 .t-story{margin-top:14px;font:400 15px/1.6 var(--text);color:#bdb5a6}
 .t-story summary{cursor:pointer;font:800 11px var(--text);letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
 .t-story p{margin:8px 0 0}
-.t-story small{display:block;margin-top:6px;font-size:12px;color:#7d756a}
 
 .g-i{font:800 12px var(--text);color:#b4530a;text-align:right}
 .mark em{font-style:normal;color:var(--amber)}
