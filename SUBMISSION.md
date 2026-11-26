@@ -21,7 +21,7 @@ How it sounds: each station has a short spoken story, a real radio tuning sound 
 ## Which technologies, tools and AI platforms did you use, and why?
 - **Next.js (App Router, plain JavaScript)**: one project for the page and the API.
 - **Canvas + Web Audio**: the static, the oscilloscope, the tuning sound and the music ducking. No animation or audio library; the effects are small enough to write directly.
-- **Node's built-in SQLite**: stores anonymous engagement events and messages with zero extra dependencies.
+- **Upstash Redis on Vercel, Node's built-in SQLite locally**: anonymous engagement events and messages, through a small store with the same API on both, and no extra dependencies.
 - **edge-tts (Microsoft neural voice, en-IN)**: the 39 station voice clips. The voice is computer-generated, reading her profile in first person; the page says so.
 - **Claude Code (Anthropic)**: as a pair: reading the profile PDF, exploring five concepts as mockups, writing and testing the code in a real browser.
 
@@ -48,4 +48,4 @@ I gave it the brief and the profile, then pushed back hard. The first versions w
 ## What would you do differently with more time?
 - Record the stories in Soniaa's own voice instead of a computer voice.
 - A small dashboard for her to read messages and see which stations people tune to most.
-- A persistent database in production (the demo store resets when the server redeploys).
+- Proper per-visitor rate limiting in Redis (today it is per server instance).

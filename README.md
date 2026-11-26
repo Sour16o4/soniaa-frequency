@@ -11,13 +11,15 @@ npm run dev            # http://localhost:3000
 
 Production build: `npm run build && npm start`. To build while `npm run dev` is running, use a separate folder: `NEXT_DIST_DIR=.next-prod npm run build`.
 
-## Deploy (Render)
+## Deploy (Vercel)
 
-1. Push this folder to GitHub.
-2. On Render: **New + → Blueprint**, pick the repo. `render.yaml` sets everything up, including a random `ADMIN_KEY`.
-3. Messages from visitors: `https://<your-app>.onrender.com/api/admin?key=<ADMIN_KEY>`.
+1. On Vercel: **Add New → Project**, import the GitHub repo. Next.js is detected; keep the defaults and deploy.
+2. **Storage → Create / Connect Database → Upstash for Redis** (free), connect it to this project. It adds `KV_REST_API_URL` and `KV_REST_API_TOKEN`.
+3. **Settings → Environment Variables**: add `ADMIN_KEY` (any long random string).
+4. **Deployments → Redeploy** so the new variables take effect.
+5. Messages from visitors: `https://<your-app>.vercel.app/api/admin?key=<ADMIN_KEY>`.
 
-The free plan's disk resets on redeploy, so stored counts and messages start fresh after each deploy.
+Storage: Redis when those variables are set (Vercel), SQLite otherwise (local). Without Redis on Vercel the site still works, but counts and messages reset.
 
 ## Where things live
 
@@ -25,6 +27,6 @@ The free plan's disk resets on redeploy, so stored counts and messages start fre
 |---|---|
 | `lib/stations.js` | All 39 stations and the voice scripts (`STORY`) |
 | `lib/radio.js` | Tuning, sound, voice, auto play, music, engagement |
-| `app/api/*` | Events, messages, live counts, admin inbox (SQLite) |
+| `app/api/*`, `lib/db.js` | Events, messages, live counts, admin inbox (Redis on Vercel, SQLite locally) |
 | `public/voice/` | Voice clips. Regenerate after editing `STORY`: `node scripts/voice.mjs` |
 | `public/music/` | Background loop (8 min cut of "Quiet Outpost") |
