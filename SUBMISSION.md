@@ -1,6 +1,6 @@
 # Frequency — Developer Challenge
 
-**Live link:** [ADD DEPLOYED URL]
+**Live link:** https://soniaa-frequency.vercel.app
 
 ## What was your idea and why did you choose it?
 Soniaa's profile keeps returning to one theme: cut through complication, bring clarity. "I don't believe in complicating things." "I bring structure without chaos."
@@ -22,7 +22,7 @@ How it sounds: each station has a short spoken story, a real radio tuning sound 
 - **Next.js (App Router, plain JavaScript)**: one project for the page and the API.
 - **Canvas + Web Audio**: the static, the oscilloscope, the tuning sound and the music ducking. No animation or audio library; the effects are small enough to write directly.
 - **Upstash Redis on Vercel, Node's built-in SQLite locally**: anonymous engagement events and messages, through a small store with the same API on both, and no extra dependencies.
-- **edge-tts (Microsoft neural voice, en-IN)**: the 39 station voice clips. The voice is computer-generated, reading her profile in first person; the page says so.
+- **edge-tts (Microsoft neural voice, en-IN)**: the 39 station voice clips. The voice is computer-generated, reading her profile in first person.
 - **Claude Code (Anthropic)**: as a pair: reading the profile PDF, exploring five concepts as mockups, writing and testing the code in a real browser.
 
 ## How did you guide AI to achieve your desired outcome?
